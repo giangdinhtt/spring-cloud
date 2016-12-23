@@ -1,0 +1,15 @@
+**/bin/
+**/target/
+**/.settings/
+**/.apt_generated/
+**/mvnw/
+**/.mvn/
+**/mvnw.cmd
+**/.classpath
+**/.project
+**/.factorypath
+**/.springBeans
+**/nohup.out
+**/*.log
+**/.idea/
+**/*.iml
