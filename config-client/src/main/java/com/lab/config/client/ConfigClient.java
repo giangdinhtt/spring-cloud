@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @EnableDiscoveryClient
 @RestController
-public class App {
+public class ConfigClient {
 
     public static void main(String[] args) {
-        SpringApplication.run(App.class, args);
+        SpringApplication.run(ConfigClient.class, args);
     }
 
 //    /@Value("${config.name}")
