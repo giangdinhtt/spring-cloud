@@ -45,8 +45,8 @@ public class JmsClient {
         RouteBuilder route = new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("activemq:topic:Orders").routeId("topic-consumer").log("log:com.lab.jms.client.JmsClient?level=DEBUG");
-                from("activemq:Consumer.A.>").routeId("virtual-topic-consumer").log("log:com.lab.jms.client.JmsClient?level=DEBUG");
+                from("activemq:topic:Orders").routeId("topic-consumer").to("log:com.lab.jms.client.JmsClient?level=INFO&showAll=true");
+                from("activemq:Consumer.A.>").routeId("virtual-topic-consumer").to("log:com.lab.jms.client.JmsClient?level=INFO&showAll=true");
             }
         };
 
