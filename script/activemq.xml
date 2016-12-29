@@ -125,7 +125,14 @@
             <mirroredQueue copyMessage="true" postfix="" prefix="qmirror."/>
             <virtualDestinationInterceptor>
               <virtualDestinations>
-                <virtualTopic name="qmirror.>" prefix="VirtualTopic.*." selectorAware="false"/>
+                <!--virtualTopic name="qmirror.>" prefix="VirtualTopic.*." selectorAware="false"/-->
+                  <compositeQueue name=">" forwardOnly="false">
+                      <forwardTo>
+                          <!--queue physicalName="monitor"/-->
+                          <filteredDestination queue="monitor" selector="1 > 2"/>
+                          <filteredDestination topic="monitor2" selector="JMSDestination = 'queue://monitor'"/>
+                      </forwardTo>
+                  </compositeQueue>
               </virtualDestinations>
             </virtualDestinationInterceptor>
         </destinationInterceptors>

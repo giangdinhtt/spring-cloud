@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+
 /**
  * Created by giang.dinh on 12/28/2016.
  */
@@ -33,17 +35,17 @@ public class JmsClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/push")
     public String push() {
-    	Endpoint endpoint = camelContext.getEndpoint("activemq:topic:test.Orders");
+    	/*Endpoint endpoint = camelContext.getEndpoint("activemq:topic:qmirror.Orders");
     	Exchange exchange = endpoint.createExchange();
     	exchange.getIn().setBody("vcl");
     	producerTemplate.asyncSend(endpoint, exchange);
 
-
-        endpoint = camelContext.getEndpoint("activemq:queue:test.Ordersqueue");
-        exchange = endpoint.createExchange();
-        exchange.getIn().setBody("vcl");
-        producerTemplate.asyncSend(endpoint, exchange);
-    	return "";
+*/
+        Endpoint endpoint2 = camelContext.getEndpoint("activemq:queue:test.Orders2");
+        Exchange exchange2 = endpoint2.createExchange();
+        exchange2.getIn().setBody("vcl");
+        producerTemplate.asyncSend(endpoint2, exchange2);
+    	return new Date().toString();
     }
 
     @Bean
@@ -51,8 +53,10 @@ public class JmsClient {
         RouteBuilder route = new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("activemq:topic:test.Orders").routeId("topic-consumer").to("log:com.lab.jms.client.JmsClient?level=INFO&showAll=true");
-                from("activemq:Consumer.A.test.>").routeId("virtual-topic-consumer").to("log:com.lab.jms.client.JmsClient?level=INFO&showAll=true");
+                from("activemq:topic:qmirror.test.Orders").routeId("topic-consumer").to("log:com.lab.jms.client.JmsClient?level=INFO&showAll=true");
+                from("activemq:queue:test.<>").routeId("queue-consumer").to("log:com.lab.jms.client.JmsClient?level=INFO&showAll=true");
+                from("activemq:queue:Consumer.C.qmirror.test.>").routeId("virtual-topic-consumer").to("log:com.lab.jms.client.JmsClient?level=INFO&showAll=true");
+                //from("activemq:queue:monitor").routeId("queue-monitor-consumer").to("log:com.lab.jms.client.JmsClient?level=INFO&showAll=true");
             }
         };
 
