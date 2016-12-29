@@ -33,10 +33,16 @@ public class JmsClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "/push")
     public String push() {
-    	Endpoint endpoint = camelContext.getEndpoint("activemq:topic:Orders");
+    	Endpoint endpoint = camelContext.getEndpoint("activemq:topic:test.Orders");
     	Exchange exchange = endpoint.createExchange();
     	exchange.getIn().setBody("vcl");
     	producerTemplate.asyncSend(endpoint, exchange);
+
+
+        endpoint = camelContext.getEndpoint("activemq:queue:test.Ordersqueue");
+        exchange = endpoint.createExchange();
+        exchange.getIn().setBody("vcl");
+        producerTemplate.asyncSend(endpoint, exchange);
     	return "";
     }
 
@@ -45,8 +51,8 @@ public class JmsClient {
         RouteBuilder route = new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("activemq:topic:Orders").routeId("topic-consumer").to("log:com.lab.jms.client.JmsClient?level=INFO&showAll=true");
-                from("activemq:Consumer.A.>").routeId("virtual-topic-consumer").to("log:com.lab.jms.client.JmsClient?level=INFO&showAll=true");
+                from("activemq:topic:test.Orders").routeId("topic-consumer").to("log:com.lab.jms.client.JmsClient?level=INFO&showAll=true");
+                from("activemq:Consumer.A.test.>").routeId("virtual-topic-consumer").to("log:com.lab.jms.client.JmsClient?level=INFO&showAll=true");
             }
         };
 

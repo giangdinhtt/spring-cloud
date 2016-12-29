@@ -122,12 +122,12 @@
             <bean xmlns="http://www.springframework.org/schema/beans" class="org.apache.activemq.hooks.SpringContextHook" />
         </shutdownHooks>
         <destinationInterceptors>
-              <!--<mirroredQueue copyMessage = "true" postfix="" prefix="qmirror."/>-->
-                <virtualDestinationInterceptor>
-                  <virtualDestinations>
-                    <virtualTopic name=">" prefix="vitcon.*." selectorAware="false"/>
-                  </virtualDestinations>
-                </virtualDestinationInterceptor>
+            <mirroredQueue copyMessage="true" postfix="" prefix="qmirror."/>
+            <virtualDestinationInterceptor>
+              <virtualDestinations>
+                <virtualTopic name="qmirror.>" prefix="VirtualTopic.*." selectorAware="false"/>
+              </virtualDestinations>
+            </virtualDestinationInterceptor>
         </destinationInterceptors>
     </broker>
 
