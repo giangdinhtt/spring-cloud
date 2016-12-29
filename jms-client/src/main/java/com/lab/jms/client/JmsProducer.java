@@ -20,7 +20,7 @@ public class JmsProducer {
 
     public static void main(String[] args) throws Exception {
 
-        thread(new HelloWorldProducer(), false);
+        //thread(new HelloWorldProducer(), false);
         /*thread(new HelloWorldProducer(), false);
         thread(new HelloWorldConsumer(), false);
         Thread.sleep(1000);
@@ -69,7 +69,7 @@ public class JmsProducer {
                 Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
                 // Create the destination (Topic or Queue)
-                Destination destination = session.createTopic("VirtualTopic.test");
+                Destination destination = session.createQueue("test.Orders");
 
                 // Create a MessageProducer from the Session to the Topic or Queue
                 MessageProducer producer = session.createProducer(destination);
