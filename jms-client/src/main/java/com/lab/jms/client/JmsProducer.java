@@ -20,7 +20,7 @@ public class JmsProducer {
 
     public static void main(String[] args) throws Exception {
 
-        //thread(new HelloWorldProducer(), false);
+        thread(new HelloWorldProducer(), false);
         /*thread(new HelloWorldProducer(), false);
         thread(new HelloWorldConsumer(), false);
         Thread.sleep(1000);
